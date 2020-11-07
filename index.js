@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const session = require('express-session')
 const passport = require('./config/ppConfig.js')
 const flash = require('connect-flash')
+const isLoggedIn = require("./middleware/isLoggedIn")
 
 
 app.set("view engine", "ejs")
@@ -41,6 +42,10 @@ app.use("/auth", require("./controllers/auth.js"))
 //home route 
 app.get("/", (req,res)=>{
     res.render("home")
+})
+
+app.get("/profile", isLoggedIn, (req,res)=>{
+    res.render("profile")
 })
 
 // bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
