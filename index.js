@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express")
 const app = express()
 const ejsLayouts = require("express-ejs-layouts")
@@ -15,7 +16,7 @@ app.use(express.urlencoded({ extended: false }))
 
 //session middleware
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.SESSIONS_SECRET,
     resave: false,
     saveUninitialized: true
 }))
@@ -53,6 +54,6 @@ app.get("/profile", isLoggedIn, (req,res)=>{
 //     console.log("password secured")
 // });
 
-app.listen (8000, ()=>{
+app.listen (process.env.PORT, ()=>{
     console.log("you're listening to the spooky sounds of port 8K")
 })
