@@ -45,11 +45,6 @@ router.get("/login", (req,res)=>{
     res.render("auth/login")
 })
 
-// router.post("/login", (req, res)=>{
-//     console.log("login info:", req.body)
-//     //redirect to home route
-//     res.redirect("/")
-// })
 
 router.post('/login', passport.authenticate('local', {
     failureRedirect: '/auth/login',

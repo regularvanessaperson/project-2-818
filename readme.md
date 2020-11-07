@@ -59,7 +59,7 @@ npm i
 
 4. Create the database
 ```
-sequelize db: create <insert db name here>
+sequelize db:create <insert db name here>
 ```
 5. Migrate the `user` model to your database
 ```

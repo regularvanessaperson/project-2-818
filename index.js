@@ -49,10 +49,6 @@ app.get("/profile", isLoggedIn, (req,res)=>{
     res.render("profile")
 })
 
-// bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
-//     // result == true
-//     console.log("password secured")
-// });
 
 app.listen (process.env.PORT, ()=>{
     console.log("you're listening to the spooky sounds of port 8K")
