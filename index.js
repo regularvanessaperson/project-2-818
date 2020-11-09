@@ -7,12 +7,16 @@ const session = require('express-session')
 const passport = require('./config/ppConfig.js')
 const flash = require('connect-flash')
 const isLoggedIn = require("./middleware/isLoggedIn")
-
+const db = require('./models')
+const axios = require('axios');
+const express = require('express');
+const axios = require('axios');
+const app = express();
 
 app.set("view engine", "ejs")
 app.use(ejsLayouts)
 //body parser middleware (this makes req.body work)
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false })) 
 
 //session middleware
 app.use(session({
