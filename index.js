@@ -9,10 +9,9 @@ const flash = require('connect-flash')
 const isLoggedIn = require("./middleware/isLoggedIn")
 const db = require('./models')
 const axios = require('axios');
-const express = require('express');
-const axios = require('axios');
-const app = express();
+const apiUrl = `https://api.boardgameatlas.com/api/search?order_by=popularity&ascending=false&client_id=${process.env.Client_Id}`
 
+app.use(express.static(__dirname + '/public'));
 app.set("view engine", "ejs")
 app.use(ejsLayouts)
 //body parser middleware (this makes req.body work)
@@ -43,12 +42,17 @@ app.use((req, res, next)=>{
 
 //use controllers
 app.use("/auth", require("./controllers/auth.js"))
+app.use("/games", require("./controllers/games.js"))
 
-//home route 
-app.get("/", (req,res)=>{
-    res.render("home")
-})
-
+// home route 
+app.get('/', (req, res)=>{
+    axios.get(apiUrl)
+      .then((apiResponse)=>{
+          const games = apiResponse.data.games
+          console.log("if this is working", games)
+          res.render("home", {games: games})
+      })
+  })
 app.get("/profile", isLoggedIn, (req,res)=>{
     res.render("profile")
 })

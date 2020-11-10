@@ -1,1 +1,21 @@
 <h2> Project 2 Boilerplate Home Page</h2>
+
+<h1> Games</h1>
+
+<form action="/games" method="GET">
+    <label for="gameName">Search favorite games</label>
+    <input type="text" name="" id="gameName">
+
+    <input type="submit">
+</form>
+<ul>
+    <% games.forEach(game=>{ %>
+    <li>
+        <img  src = <%= game.images.small %> width="100"  >
+        <a href= "games/<%= game.url%>" : ><%= game.name %></a>  <br>
+            Players: <%=game.min_players%> - <%=game.max_players%> <br>
+            Play time: <%=game.min_playtime%> - <%=game.max_playtime%>
+        
+        </li>
+<%}) %> 
+</ul>
