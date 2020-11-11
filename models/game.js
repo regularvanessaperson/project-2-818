@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.game.belongsToMany(models.user, {through: "UserGame"})
+      models.game.hasMany(models.gameScore)
     }
   };
   game.init({

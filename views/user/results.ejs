@@ -1,0 +1,21 @@
+
+<h1> Games</h1>
+
+<form action="/games/games" method="GET">
+    <label for="gameName">Search favorite games</label>
+    <input type="text" name="name" id="gameName">
+
+    <input type="submit">
+</form>
+
+<div class="container">
+    <% gameInfo.forEach(game=>{ %>
+    <div class="game_list">
+        <h4><%= game.name %></h3> 
+        <img  src = <%= game.images.small %> width="100"  >
+            Players: <%=game.min_players%> - <%=game.max_players%> <br>
+            Play time: <%=game.min_playtime%> - <%=game.max_playtime%>
+            </div>
+<%}) %> 
+</div>
+

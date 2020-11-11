@@ -11,11 +11,14 @@ const db = require('./models')
 const axios = require('axios');
 const apiUrl = `https://api.boardgameatlas.com/api/search?order_by=popularity&ascending=false&client_id=${process.env.Client_Id}`
 
-app.use(express.static(__dirname + '/public'));
+
+app.use(express.static(__dirname + '/public/'));
 app.set("view engine", "ejs")
 app.use(ejsLayouts)
 //body parser middleware (this makes req.body work)
 app.use(express.urlencoded({ extended: false })) 
+
+
 
 //session middleware
 app.use(session({
@@ -45,16 +48,19 @@ app.use("/auth", require("./controllers/auth.js"))
 app.use("/games", require("./controllers/games.js"))
 
 // home route 
-app.get('/', (req, res)=>{
-    axios.get(apiUrl)
-      .then((apiResponse)=>{
-          const games = apiResponse.data.games
-          console.log("if this is working", games)
-          res.render("home", {games: games})
-      })
-  })
-app.get("/profile", isLoggedIn, (req,res)=>{
-    res.render("profile")
+app.get("/", (req,res)=>{
+    res.render("home")
+})
+// app.get('/', (req, res)=>{
+//     axios.get(apiUrl)
+//       .then((apiResponse)=>{
+//           const games = apiResponse.data.games
+//           console.log("if this is working", games)
+//           res.render("home", {games: games})
+//       })
+//   })
+app.get("/library", isLoggedIn, (req,res)=>{
+    res.render("user/library")
 })
 
 

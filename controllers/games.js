@@ -4,17 +4,37 @@ const db = require("../models")
 const passport = require('../config/ppConfig.js')
 const axios = require('axios');
 const app = express();
-const apiUrl = `https://api.boardgameatlas.com/api/search?order_by=popularity&ascending=false&client_id=${process.env.Client_Id}`
 
 
-// router.get('/', (req, res)=>{
-//     console.log("home route for axios is working" ,apiUrl)
-//     axios.get(apiUrl)
-//       .then((apiResponse)=>{
-//           const games = apiResponse.data.games
-//           console.log("if this is working", games)
-//           res.render("home", {games: games})
-//       })
-//   })
+router.get('/', (req, res)=>{
+          res.render("user/home")
+      })
 
+
+  //reads search result
+router.get("/games", (req, res)=>{
+    let gameName= req.query.name
+    console.log("game searched", gameName)
+    axios.get(`https://api.boardgameatlas.com/api/search?name=${gameName}&client_id=${process.env.Client_Id}`)
+    .then((response) =>{
+    res.render("user/results.ejs", {gameInfo: response.data.games})
+    })
+    .catch(error=>{
+        console.log("didn't work", error)
+    })
+})
+
+//Reads the game at that index
+// app.get("/games/:idx", (req,res)=>{
+//     let gameId = req.params.idx
+//     axios.get(`https://api.boardgameatlas.com/api/search?name=${gameId}&client_id=${process.env.Client_Id}`)
+//     .then(response =>{
+//         let gameInfo = response.data.games
+//         console.log("game info works and is reading at index", gameInfo)
+//         res.render("shows.ejs", {imdbId: movieId, movie_info: movieInfo})
+//     })
+//     .catch(err=>{
+//         console.log(err)
+//     })
+// })
 module.exports = router

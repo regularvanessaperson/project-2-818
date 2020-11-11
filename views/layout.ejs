@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>818 Express Auth</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>Board Game Library App</title>
 </head>
 <body>
     <header>
         <h1>
-            818 Express Auth
+            Board Game Library App
         </h1>
         <nav>
             <ul>
@@ -18,13 +19,15 @@
                 <li><a href="/auth/login">Login</a></li>
                 <% } else { %>
                 <li><a href="/auth/logout">Logout</a></li>
-                <li><a href="/profile">Profile</a></li>
-                <li><a href="/">Home</a></li>
+                <li><a href="/library">Library</a></li>
+                <li><a href="/games">Home</a></li>
                 <% } %>
             </ul>
             </nav>
     </header>
     <%- include("partials/alerts") %>
     <%-body%>
+
+   
 </body>
 </html>
