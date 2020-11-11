@@ -24,17 +24,27 @@ router.get("/games", (req, res)=>{
     })
 })
 
-//Reads the game at that index
-// app.get("/games/:idx", (req,res)=>{
-//     let gameId = req.params.idx
-//     axios.get(`https://api.boardgameatlas.com/api/search?name=${gameId}&client_id=${process.env.Client_Id}`)
-//     .then(response =>{
-//         let gameInfo = response.data.games
-//         console.log("game info works and is reading at index", gameInfo)
-//         res.render("shows.ejs", {imdbId: movieId, movie_info: movieInfo})
-//     })
-//     .catch(err=>{
-//         console.log(err)
-//     })
-// })
+// Reads the game at that index
+router.get("/:idx", (req,res)=>{
+    let gameId = req.params.idx
+    axios.get(`https://api.boardgameatlas.com/api/search?name=${gameId}&client_id=${process.env.Client_Id}`)
+    .then(response =>{
+        let gameInfo = response.data.games
+        console.log("game info works and is reading")
+        res.render("user/info", {gameInfo: gameInfo})
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+})
+
+router.post("/library", (req,res)=>{
+        res.redirect("/games/library")
+    
+})
+
+router.get("library", (req,res)=>{
+
+    res.render("user/library")
+})
 module.exports = router
