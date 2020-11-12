@@ -15,9 +15,13 @@
         <img style="align-self: center;" src = <%= game.images.small %> width="100"  > <br>
             Players: <%=game.min_players%> - <%=game.max_players%> <br>
             Play time: <%=game.min_playtime%>min - <%=game.max_playtime%>min
-            <input hidden type="text" name="name" value="<%= game.name %>"> <br>
             <a href="<%= game.name %>"> View Game Info</a> <br>
-            <form method="POST" action="/library">
+            <form method="POST" action="/games/library">
+                <input hidden type="text" name="name" value="<%= game.name %>"> <br>
+                <input hidden type="text" name="description" value="<%= game.description_preview %>"> <br>
+                <input hidden type="text" name="picture" value="<%= game.images.small %>"> <br>
+                <input hidden type="text" name="userName" value="<%= currentUser.name %>"> <br>
+                <input hidden type="text" name="userId" value="<%= currentUser.id %>"> <br>
                 <button class="btn btn-primary" type="submit"> + Add to Game Library</button>
               </form>
     </div>

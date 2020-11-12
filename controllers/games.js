@@ -3,6 +3,7 @@ let router = express.Router()
 const db = require("../models")
 const passport = require('../config/ppConfig.js')
 const axios = require('axios');
+const isLoggedIn = require("../middleware/isLoggedIn");
 const app = express();
 
 
@@ -12,7 +13,7 @@ router.get('/', (req, res)=>{
 
 
   //reads search result
-router.get("/games", (req, res)=>{
+router.get("/games", isLoggedIn, (req, res)=>{
     let gameName= req.query.name
     console.log("game searched", gameName)
     axios.get(`https://api.boardgameatlas.com/api/search?name=${gameName}&client_id=${process.env.Client_Id}`)
@@ -20,12 +21,52 @@ router.get("/games", (req, res)=>{
     res.render("user/results.ejs", {gameInfo: response.data.games})
     })
     .catch(error=>{
-        console.log("didn't work", error)
+        console.log("search didn't work", error)
+    })
+})
+
+
+//select a game and create it in the library
+router.post("/library", isLoggedIn, (req,res)=>{
+    db.game.findOrCreate({
+        where: {
+            name: req.body.name,
+            description: req.body.description,
+            picture: req.body.picture   
+        }
+    }) .then(([game ,createdGame])=> {
+        db.user.findOne({
+            where:{
+                name: req.body.userName
+            }
+        }).then((foundUser)=>{
+            foundUser.addGame(game)
+            .then(createdRelation=>{
+                console.log("created relation worked", createdRelation)
+                res.redirect("/games/library")
+            })
+        })
+    })
+})
+
+//render all games associated with user that is logged in on the library page
+router.get("/library", isLoggedIn, (req,res)=>{
+    // console.log(res.locals.currentUser, {include: [db.games]})
+    console.log("i am in library trying to get the id")
+    db.user.findByPk(res.locals.currentUser.id, {include: [db.game]})
+    .then(foundUser=>{
+    foundUser.getGames()
+        .then(foundGames=>{
+        console.log("foundGames", foundGames)
+        res.render("user/library", {foundGames: foundGames})
+        })
+    }).catch(err=>{
+        console.log("error rendering library", err)
     })
 })
 
 // Reads the game at that index
-router.get("/:idx", (req,res)=>{
+router.get("/:idx", isLoggedIn, (req,res)=>{
     let gameId = req.params.idx
     axios.get(`https://api.boardgameatlas.com/api/search?name=${gameId}&client_id=${process.env.Client_Id}`)
     .then(response =>{
@@ -38,13 +79,4 @@ router.get("/:idx", (req,res)=>{
     })
 })
 
-router.post("/library", (req,res)=>{
-        res.redirect("/games/library")
-    
-})
-
-router.get("library", (req,res)=>{
-
-    res.render("user/library")
-})
 module.exports = router

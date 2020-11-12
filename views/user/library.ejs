@@ -1,1 +1,13 @@
 <h2> <%= currentUser.name %>'s Library </h2>
+<h2> <%= currentUser.id %>'s Library </h2>
+
+
+<div class="container">
+    <% foundGames.forEach(game=>{ %>
+    <div class="game_list">
+        <h4><%= game.dataValues.name %></h3> <br>
+
+              </form>
+    </div>
+<%}) %> 
+</div>

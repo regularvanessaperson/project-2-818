@@ -59,9 +59,9 @@ app.get("/", (req,res)=>{
 //           res.render("home", {games: games})
 //       })
 //   })
-app.get("/library", isLoggedIn, (req,res)=>{
-    res.render("user/library")
-})
+// app.get("/library", isLoggedIn, (req,res)=>{
+//     res.render("user/library")
+// })
 
 
 app.listen (process.env.PORT, ()=>{
