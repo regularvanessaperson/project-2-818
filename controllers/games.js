@@ -139,7 +139,45 @@ router.post('/:idx/comments', isLoggedIn, (req, res) => {
        console.log("the comment is not working:",error)
          })
     })
-    })
 })
+})
+
+//edit a comment on the game
+router.get('/:idx/comments/:comment/edit', isLoggedIn, (req, res) => {
+    let gameId = req.params.idx
+    let comment = req.params.comment
+    console.log("this is the req.params you are looking for", req.params.idx)
+    console.log("find the comment id", req.body.id)
+    db.comment.findByPk(comment)
+     .then(foundComment => {
+         console.log(foundComment);
+        res.render("user/edit",{foundComment:foundComment, gameId:gameId})
+         })
+     .catch((error) => {
+       console.log("the comment update is not working:",error)
+         })
+    })
+
+//put rout to add edited comment back to info page
+router.put('/:idx/comments', isLoggedIn, (req, res) => {
+    let gameId = req.params.idx
+    let comment = req.body.commentId
+    console.log("this is the req.params you are looking for", req.params.idx)
+    db.comment.update({
+        content: req.body.comment,
+        rating: req.body.rating
+    },
+    {
+        where:{
+            id: comment
+        }
+    })
+     .then(newComment => {
+        res.redirect(`/games/${req.params.idx}`)
+     })
+     .catch((error) => {
+       console.log("the comment update is not working:",error)
+         })
+    })
 
 module.exports = router

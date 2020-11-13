@@ -1,0 +1,33 @@
+<h1>Edit your comment here</h1>
+
+
+<%=foundComment.dataValues.content%>
+
+
+<form action="/games/<%=gameId%>/comments/?_method=PUT" method="POST">
+    <div class="form-group">
+        <div class="form-group row">
+            <label for="userName" class="col-sm-2 col-form-label">User:</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="userName" name="name"
+                    value="<%= currentUser.name %>" required>
+            </div>
+        </div>
+        <label for="comment">Update comments:</label>
+        <input type="text" class="form-control" id="comment" name="comment" required
+            value="<%=foundComment.dataValues.content%>"></input>
+        <div class="form-group row">
+            <label for="rating"> Update Rating:</label>
+            <div class="rating">
+                <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+            </div>
+        </div>
+        <input hidden type="text" name="userId" value="<%= currentUser.id %>"> <br>
+        <input hidden type="text" name="commentId" value="<%= foundComment.dataValues.id %>"> <br>
+        <input type="submit" class="btn btn-primary">
+    </div>
+    </div>

@@ -2,47 +2,57 @@
 
 <div class="game_info">
     <% gameInfo.forEach(game =>{ %>
-       <h2><%=game.name%> </h2>
-       Published: <%= game.year_published %> 
-       Players: <%= game.min_players %> to <%= game.max_players %> 
-       <img src="<%= game.images.medium%>">
-       <%= game.description_preview %> 
-    <%})%> 
-    </div>
+    <h2><%=game.name%> </h2>
+    Published: <%= game.year_published %>
+    Players: <%= game.min_players %> to <%= game.max_players %>
+    <img src="<%= game.images.medium%>">
+    <%= game.description_preview %>
+    <%})%>
+</div>
 <div>
     <% gameInfo.forEach(game =>{ %>
     <form action="/games/<%=game.name%>/comments" method="POST">
-        <div class="form-group"> 
-        <div class="form-group row">
-        <label for="userName" class="col-sm-2 col-form-label">User commenting:</label>
-        <div class="col-sm-10">
-        <input type="text" readonly class="form-control-plaintext" id="userName" name="name" value="<%= currentUser.name %>"required>
+        <div class="form-group">
+            <div class="form-group row">
+                <label for="userName" class="col-sm-2 col-form-label">User commenting:</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="userName" name="name"
+                        value="<%= currentUser.name %>" required>
+                </div>
+            </div>
+            <label for="comment">Add new comments:</label>
+            <input type="text" class="form-control" id="comment" name="comment" required>
+            <div class="form-group row">
+                <label for="rating"> Rating:</label>
+                <div class="rating">
+                    <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                    <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                    <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                    <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                    <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                </div>
+            </div>
+            <input hidden type="text" name="userId" value="<%= currentUser.id %>"> <br>
+            <input type="submit" class="btn btn-primary">
         </div>
-        </div>
-          <label for="comment">Add new comments:</label>
-          <input type="text" class="form-control" id="comment" name="comment" required>
-          <div class="form-group row">
-          <label for="rating"> Rating:</label>
-          <div class="rating">
-               <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> 
-               <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> 
-               <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> 
-               <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> 
-               <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-          </div>
-          </div>
-          <input hidden type="text" name="userId" value="<%= currentUser.id %>"> <br>
-          <input type="submit" class="btn btn-primary">
-        </div>
-    <%})%> 
+        <%})%>
 </div>
 
 <h3>Comments: </h3>
-  <% gameComments.dataValues.comments.forEach(comment=> { %>
-    <div class="well">
-      <p>
-        <strong> <%=comment.name%></strong> <br>
-        <%= comment.content %> 
-   </p>
-    </div>
-  <% }) %>
+<% gameComments.dataValues.comments.forEach((comment, index)=> { %>
+<div class="well">
+    <p>
+        <%= currentUser.name %> <br>
+        <%= comment.content %> <br>
+        Rating: <%= comment.rating %>/5
+        <% gameInfo.forEach(game =>{ %>
+        <!-- <form action="/games/<%= game.name%>/comments/edit" method="GET">
+        <input hidden type="text" name="commentId" value="<%= comment.id %>"> <br>
+        <input type="submit" class="btn btn-primary" value="Edit">
+         </p>
+        </form> -->
+        <a href="/games/<%= game.name%>/comments/<%= comment.id %>/edit" class="btn btn-primary" value="Edit"> </a>
+        </form>
+        <%})%>
+</div>
+<% }) %>

@@ -6,18 +6,18 @@
     <% foundGames.forEach(game=>{ %>
     <div class="game_list">
         <h4><%= game.dataValues.name %></h3> <br>
-        <img style="align-self: center;" src = <%= game.dataValues.picture %> width="100"  > <br>
-        <p><%= game.dataValues.description%></p>
+            <img style="align-self: center;" src=<%= game.dataValues.picture %> width="100"> <br>
+            <p><%= game.dataValues.description%></p>
 
-        <a href="<%= game.dataValues.name %>"> View Game Info</a> <br>           
-        <form method="POST" action="/games/library/?_method=DELETE ">
-        <input hidden type="text" name="name" value="<%= game.dataValues.name %>"> <br>
-        <input hidden type="text" name="description" value="<%= game.dataValues.description %>"> <br>
-        <input hidden type="text" name="picture" value="<%= game.dataValues.picture %>"> <br>
-        <input hidden type="text" name="userName" value="<%= currentUser.name %>"> <br>
-        <input hidden type="text" name="userId" value="<%= currentUser.id %>"> <br>
-        <button class="btn btn-primary" type="submit"> - Delete From Library</button>
-        </form>
+            <a href="<%= game.dataValues.name %>"> View Game Info</a> <br>
+            <form method="POST" action="/games/library/?_method=DELETE ">
+                <input hidden type="text" name="name" value="<%= game.dataValues.name %>"> <br>
+                <input hidden type="text" name="description" value="<%= game.dataValues.description %>"> <br>
+                <input hidden type="text" name="picture" value="<%= game.dataValues.picture %>"> <br>
+                <input hidden type="text" name="userName" value="<%= currentUser.name %>"> <br>
+                <input hidden type="text" name="userId" value="<%= currentUser.id %>"> <br>
+                <button class="btn btn-primary" type="submit"> - Delete From Library</button>
+            </form>
     </div>
-<%}) %>
+    <%}) %>
 </div>
