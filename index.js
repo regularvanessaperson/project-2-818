@@ -10,8 +10,9 @@ const isLoggedIn = require("./middleware/isLoggedIn")
 const db = require('./models')
 const axios = require('axios');
 const apiUrl = `https://api.boardgameatlas.com/api/search?order_by=popularity&ascending=false&client_id=${process.env.Client_Id}`
+var methodOverride = require('method-override');
 
-
+app.use(methodOverride('_method'));
 app.use(express.static(__dirname + '/public/'));
 app.set("view engine", "ejs")
 app.use(ejsLayouts)

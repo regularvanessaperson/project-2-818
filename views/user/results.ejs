@@ -15,7 +15,7 @@
         <img style="align-self: center;" src = <%= game.images.small %> width="100"  > <br>
             Players: <%=game.min_players%> - <%=game.max_players%> <br>
             Play time: <%=game.min_playtime%>min - <%=game.max_playtime%>min
-            <a href="<%= game.name %>"> View Game Info</a> <br>
+            <a href="/games/<%= game.name %>"> View Game Info</a> <br>
             <form method="POST" action="/games/library">
                 <input hidden type="text" name="name" value="<%= game.name %>"> <br>
                 <input hidden type="text" name="description" value="<%= game.description_preview %>"> <br>

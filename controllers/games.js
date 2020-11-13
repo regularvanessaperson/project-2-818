@@ -5,9 +5,9 @@ const passport = require('../config/ppConfig.js')
 const axios = require('axios');
 const isLoggedIn = require("../middleware/isLoggedIn");
 const app = express();
+var methodOverride = require('method-override');
 
-
-router.get('/', (req, res)=>{
+router.get('/', isLoggedIn, (req, res)=>{
           res.render("user/home")
       })
 
@@ -15,7 +15,7 @@ router.get('/', (req, res)=>{
   //reads search result
 router.get("/games", isLoggedIn, (req, res)=>{
     let gameName= req.query.name
-    console.log("game searched", gameName)
+    console.log("search is working")
     axios.get(`https://api.boardgameatlas.com/api/search?name=${gameName}&client_id=${process.env.Client_Id}`)
     .then((response) =>{
     res.render("user/results.ejs", {gameInfo: response.data.games})
@@ -26,7 +26,7 @@ router.get("/games", isLoggedIn, (req, res)=>{
 })
 
 
-//select a game and create it in the library
+//select a game and add it to the library
 router.post("/library", isLoggedIn, (req,res)=>{
     db.game.findOrCreate({
         where: {
@@ -42,7 +42,7 @@ router.post("/library", isLoggedIn, (req,res)=>{
         }).then((foundUser)=>{
             foundUser.addGame(game)
             .then(createdRelation=>{
-                console.log("created relation worked", createdRelation)
+                console.log("a game was added to the library- association made between user and game")
                 res.redirect("/games/library")
             })
         })
@@ -57,7 +57,7 @@ router.get("/library", isLoggedIn, (req,res)=>{
     .then(foundUser=>{
     foundUser.getGames()
         .then(foundGames=>{
-        console.log("foundGames", foundGames)
+        console.log("all games should be rendering on the library")
         res.render("user/library", {foundGames: foundGames})
         })
     }).catch(err=>{
@@ -65,17 +65,74 @@ router.get("/library", isLoggedIn, (req,res)=>{
     })
 })
 
-// Reads the game at that index
+//select a game and delete it from the library
+router.delete("/library", isLoggedIn, (req,res)=>{
+    db.game.findOne({
+        where: {
+            name: req.body.name,
+            description: req.body.description,
+            picture: req.body.picture   
+        }
+    }) .then((game)=> {
+        db.user.findOne({
+            where:{
+                name: req.body.userName
+            }
+        }).then((foundUser)=>{
+            foundUser.removeGame(game)
+            .then(removedRelation=>{
+                console.log("a game was added to the library- association made between user and game")
+                res.redirect("/games/library")
+            }).catch(err=>{
+                console.log("error rendering library", err)
+            })
+        })
+    })
+})
+
+// Reads the game at that index and displays game info for one game
 router.get("/:idx", isLoggedIn, (req,res)=>{
     let gameId = req.params.idx
-    axios.get(`https://api.boardgameatlas.com/api/search?name=${gameId}&client_id=${process.env.Client_Id}`)
+    //added exact=true so only one result returns
+    axios.get(`https://api.boardgameatlas.com/api/search?name=${gameId}&exact=true&client_id=${process.env.Client_Id}`)
     .then(response =>{
         let gameInfo = response.data.games
-        console.log("game info works and is reading")
+        console.log("game info works and is reading", gameInfo)
         res.render("user/info", {gameInfo: gameInfo})
     })
     .catch(err=>{
         console.log(err)
+    })
+})
+
+
+//create a comment on the game
+router.post('/:idx/comments', isLoggedIn, (req, res) => {
+    let gameId = req.params.idx
+    console.log("comments are on their way")
+    // console.log("is this the game:",res.locals.currentGame.id)
+    console.log("this is the req.params you are looking for", req.params.idx)
+    console.log(req.body)
+    db.comment.create({
+       content: req.body.comment,
+       rating: req.body.rating,
+       userId: req.body.userId
+     })
+     .then(newComment => {
+        db.game.findOne({
+            where:{
+                name: req.params.idx
+            },
+            include:[db.user]
+     }).then(foundGame=>{
+         foundGame.addComment(newComment)
+         .then(newRelation=>{
+            res.redirect(`/games/${req.params.idx}`)
+         })
+     .catch((error) => {
+       console.log("the comment is not working:",error)
+         })
+    })
     })
 })
 
