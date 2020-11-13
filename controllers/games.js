@@ -96,9 +96,15 @@ router.get("/:idx", isLoggedIn, (req,res)=>{
     //added exact=true so only one result returns
     axios.get(`https://api.boardgameatlas.com/api/search?name=${gameId}&exact=true&client_id=${process.env.Client_Id}`)
     .then(response =>{
-        let gameInfo = response.data.games
-        console.log("game info works and is reading", gameInfo)
-        res.render("user/info", {gameInfo: gameInfo})
+        db.game.findOne({
+            where: {name: gameId},
+            include: [db.comment, db.user]
+        }).then(gameComments=>{
+            let gameInfo = response.data.games
+            console.log("game info works and is reading", gameInfo)
+            console.log("found game:", gameComments)
+            res.render("user/info", {gameInfo: gameInfo, gameComments:gameComments})
+        })
     })
     .catch(err=>{
         console.log(err)

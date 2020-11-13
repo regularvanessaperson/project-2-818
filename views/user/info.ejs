@@ -36,3 +36,13 @@
         </div>
     <%})%> 
 </div>
+
+<h3>Comments: </h3>
+  <% gameComments.dataValues.comments.forEach(comment=> { %>
+    <div class="well">
+      <p>
+        <strong> <%=comment.name%></strong> <br>
+        <%= comment.content %> 
+   </p>
+    </div>
+  <% }) %>
