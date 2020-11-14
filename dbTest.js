@@ -1,8 +1,8 @@
 var db = require('./models')
 
-db.game.destroy({
-    where: {name: "Pandemic"}
-})
-.then(numRowsDeleted =>{
-    console.log(numRowsDeleted)
-})
+// db.game.destroy({
+//     where: {name: "Pandemic"}
+// })
+// .then(numRowsDeleted =>{
+//     console.log(numRowsDeleted)
+// })
