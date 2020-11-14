@@ -103,11 +103,13 @@ router.get("/:idx", isLoggedIn, (req,res)=>{
             let gameInfo = response.data.games
             console.log("game info works and is reading", gameInfo)
             console.log("found game:", gameComments)
-            if(gameComments){
+            if(gameComments != null){
                 gameComments.dataValues.comments.forEach(comment => {
                     let userId = comment.userId;
+                    console.log("this is th userId",userId)
                     gameComments.dataValues.users.forEach(user => {
                         if(user.id === userId){
+                            console.log("user.name", user.name)
                             comment.userName = user.name;
                         }
                     })

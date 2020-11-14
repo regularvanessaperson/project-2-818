@@ -1,9 +1,13 @@
-<h1> Games</h1>
-<div class="d-flex align-content-stretch justify-content-center padding-20px">
-<form action="/games/games" method="GET">
+<div class="banner-pic">
+    <h2 style="font-size: 80px;"class=""> Game Results</h2>
+    </div>
+    
+<div class="d-flex align-content-stretch justify-content-center padding-20px ">
+<form class="form-search"action="/games/games" method="GET">
     <label for="gameName"></label>
-    <input placeholder="Search favorite games" type="text" name="name" id="gameName">
-    <input type="submit">
+    <label for="gameName"></label>
+    <input class="form-control .form-control-lg" placeholder="Search favorite games" type="text" name="name" id="gameName">
+    <input class="btn btn-info" type="submit">
 </form>
 </div>
 <div class="d-flex align-content-stretch justify-content-center flex-wrap">
@@ -25,7 +29,7 @@
                             <input hidden type="text" name="picture" value="<%= game.images.small %>">
                             <input hidden type="text" name="userName" value="<%= currentUser.name %>">
                             <input hidden type="text" name="userId" value="<%= currentUser.id %>">
-                            <button class="btn btn-sm btn-outline-secondary" type="submit"> + Add to Game
+                            <button class="btn btn-sm btn-outline-secondary" type="submit"> Add to Game
                                 Library</button>
                         </form>
                     </div>

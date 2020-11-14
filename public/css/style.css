@@ -15,12 +15,41 @@ nav {
 .banner-pic {
   background-image: url("https://houstonswords.com/wp-content/uploads/2018/12/board-game-wallpaper-1500x375.jpg");
   height: 200px;
-  color: blue;
+  color: yellow;
+  text-shadow: 2px 2px 2px brown;
   align-content: center;
   justify-content: center;
   text-align: center;
   padding-top: 100px;
+  font-family: 'Lilita One', cursive;
 }
+
+.go-login {
+    background-image: url("https://thebrag.com/wp-content/uploads/2019/01/monopoly.jpg");
+    height: 800px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: yellow;
+    text-shadow: 2px 2px 2px brown;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 100px;
+    font-family: 'Lilita One', cursive;
+  }
+  .login-pic {
+    background-image: url("https://image.made-in-china.com/2f0j00LDFRolkMAHqe/New-Product-Wooden-Board-Game-Tokens-Factory-Price-Game-Pieces.jpg");
+    height: 800px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: yellow;
+    text-shadow: 3px 3px 3px rgb(143, 46, 46);
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 100px;
+    font-family: 'Lilita One', cursive;
+  }
 
 /* .game_list {
     border: solid yellow 2px;
@@ -73,6 +102,7 @@ nav {
 body {
     background: #222225;
     color: bisque;
+    font-family: 'Lilita One', cursive;
 }
 
 h1,
@@ -164,3 +194,12 @@ body {
       font-size: 3.5rem;
     }
   } 
+
+  .info-div {
+    display:flex;
+    flex-direction: column;
+    margin:0 auto;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
