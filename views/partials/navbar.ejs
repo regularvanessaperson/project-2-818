@@ -1,0 +1,17 @@
+
+
+
+<nav class="collapse navbar-collapse navbar-ex1-collapse" style="background-color: #e3f2fd;" role="navigation">
+    <a class="navbar-brand" href="#">Default
+    <ul class="navbar-nav">
+        <% if (!currentUser) { %>
+        <li class="nav-item"><a  href="/auth/signup">Signup</a></li>
+        <li class="nav-item"><a  href="/auth/login">Login</a></li>
+        <% } else { %>
+        <li class="nav-item"><a  href="/games">Home</a></li>
+        <li class="nav-item"><a  href="/games/library">Library</a></li>
+        <li class="nav-item"><a  href="/auth/logout">Logout</a></li>
+        <% } %>
+    </ul>
+</a>
+    </nav>

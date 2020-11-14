@@ -1,10 +1,14 @@
-<h2> Project 2 Boilerplate Home Page</h2>
+<div class="banner-pic">
+<h2 class=""> Welcome <%= currentUser.name %></h2>
+</div>
 
-<h1> Games</h1>
+    <div class="container"></div>
+      <form class="form-search" action="/games/games" method="GET">
+        <h2 class="h3 mb-3 font-weight-normal"><label for="gameName">Search favorite games</label></h2>
+        <input class="form-control .form-control-lg" placeholder="Search your favorite games" type="text" name="name" id="gameName">
+        <input class="btn btn-info" type="submit">
+    </form>
+  
+    </div>
+ 
 
-<form action="/games/games" method="GET">
-    <label for="gameName">Search favorite games</label>
-    <input type="text" name="name" id="gameName">
-
-    <input type="submit">
-</form>

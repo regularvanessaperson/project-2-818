@@ -37,12 +37,12 @@
         </div>
         <%})%>
 </div>
-
+<% if(gameComments) { %>
 <h3>Comments: </h3>
 <% gameComments.dataValues.comments.forEach((comment, index)=> { %>
 <div class="well">
     <p>
-        <%= currentUser.name %> <br>
+        <%= comment.userName %> <br>
         <%= comment.content %> <br>
         Rating: <%= comment.rating %>/5
         <% gameInfo.forEach(game =>{ %>
@@ -51,8 +51,9 @@
         <input type="submit" class="btn btn-primary" value="Edit">
          </p>
         </form> -->
-        <a href="/games/<%= game.name%>/comments/<%= comment.id %>/edit" class="btn btn-primary" value="Edit"> </a>
+        <a href="/games/<%= game.name%>/comments/<%= comment.id %>/edit" class="btn btn-primary"> Edit </a>
         </form>
         <%})%>
 </div>
 <% }) %>
+<% } %>

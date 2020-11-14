@@ -1,12 +1,12 @@
 <h2>Signup for Boardgame Library</h2>
-<form method="POST" action="/auth/signup">
-    <label for="new-name">Name</label>
-    <input type="text" name="name" id="new-name">
+<form class="form-signin" method="POST" action="/auth/signup">
+    <label class="sr-only" for="new-name">Name</label>
+    <input class="form-control" type="text" name="name" id="new-name" placeholder="User Name">
 
-    <label for="new-email">Email</label>
-    <input type="email" name="email" id="new-email">
+    <label class="sr-only" for="new-email">Email</label>
+    <input class="form-control" type="email" name="email" id="new-email" placeholder="Email Password">
 
-    <label for="new-password">Password</label>
-    <input type="password" name="password" id="new-password">
-    <input type="submit" value="Sign Up">
+    <label class="sr-only" for="new-password">Password</label>
+    <input class="form-control"type="password" name="password" id="new-password" placeholder="New Password">
+    <input class="btn btn-lg btn-primary btn-block"type="submit" value="Sign Up">
 </form>
