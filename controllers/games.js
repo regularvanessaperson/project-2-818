@@ -6,6 +6,7 @@ const axios = require('axios');
 const isLoggedIn = require("../middleware/isLoggedIn");
 const app = express();
 var methodOverride = require('method-override');
+const user = require("../models/user");
 
 router.get('/', isLoggedIn, (req, res)=>{
           res.render("user/home")
@@ -109,14 +110,14 @@ router.get("/:idx", isLoggedIn, (req,res)=>{
                     console.log("this is th userId",userId)
                     gameComments.dataValues.users.forEach(user => {
                         if(user.id === userId){
-                            console.log("user.name", user.name)
-                            comment.userName = user.name;
+                            console.log("user.name", user.id)
+                            comment.userId = user.id;
                         }
                     })
                 });
                 console.log(gameComments.dataValues.comments)
             }
-            res.render("user/info", {gameInfo: gameInfo, gameComments:gameComments})
+            res.render("user/info", {gameInfo: gameInfo, gameComments:gameComments })
         })
     })
     .catch(err=>{
