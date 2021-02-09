@@ -56,7 +56,7 @@
 <% gameComments.dataValues.comments.forEach((comment, index)=> { %>
     <div class="card w-75">
         <div class="card-body">
-       <h5 class="card-title"> <%= comment.userName %> </h5><br>
+       <h5 class="card-title"> <%= comment.name %> </h5><br>
         <p class="card-text"><%= comment.content %> <br>
         Rating: <%= comment.rating %>/5
         <% gameInfo.forEach(game =>{ %>

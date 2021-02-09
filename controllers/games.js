@@ -110,13 +110,13 @@ router.get("/:idx", isLoggedIn, (req,res)=>{
                     console.log("this is th userId",userId)
                     gameComments.dataValues.users.forEach(user => {
                         if(user.id === userId){
-                            console.log("user.name", user)
-                            comment.userName = user.name;
+                            console.log("user.name", comment.name)
+                            comment.name = user.name
                             comment.userId = user.id;
                         }
                     })
                 });
-                console.log(gameComments.dataValues.comments)
+                console.log("what is the comment", gameComments.dataValues.comments)
             }
             res.render("user/info", {gameInfo: gameInfo, gameComments:gameComments })
         })
@@ -138,16 +138,16 @@ router.post('/:idx/comments', isLoggedIn, (req, res) => {
        content: req.body.comment,
        rating: req.body.rating,
        userId: req.body.userId
-     })
+    })
      .then(newComment => {
         db.game.findOne({
             where:{
                 name: req.params.idx
             },
-            include:[{
+            include: [{
                 model: db.user,
                 attributes: ['name'],
-                where:{
+                where: {
                     id: newComment.userId 
                 }
             }]
