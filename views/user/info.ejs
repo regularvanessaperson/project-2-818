@@ -33,7 +33,6 @@
             </div>
         </div>
         <label for="comment" class="form-label">Add new comments:</label>
-        <!-- <input type="text" class="form-control" id="comment" name="comment" required> -->
         <textarea type="text" class="form-control" id="comment" name="comment"  rows="3" required></textarea>
         <div class="form-group row">
             <label for="rating"> Rating:</label>
@@ -60,11 +59,6 @@
         <p class="card-text"><%= comment.content %> <br>
         Rating: <%= comment.rating %>/5
         <% gameInfo.forEach(game =>{ %>
-        <!-- <form action="/games/<%= game.name%>/comments/edit" method="GET">
-        <input hidden type="text" name="commentId" value="<%= comment.id %>"> <br>
-        <input type="submit" class="btn btn-primary" value="Edit">
-         </p>
-        </form> -->
         <% if(comment.userId === currentUser.id) { %>
         <a href="/games/<%= game.name%>/comments/<%= comment.id %>/edit" class="btn btn-primary"> Edit </a>
         <%}%>
