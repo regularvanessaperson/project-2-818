@@ -1,19 +1,21 @@
 <div class="info-div">
     <% gameInfo.forEach(game =>{ %>
         <div class="card mb-3" style="max-width: 100%;">
-            <div class="row no-gutters">
+            <div class="row g-0">
                 <div class="col-md-4">
-        <img class="card-img" src="<%= game.images.medium%>" style="max-width: 300px;">
-    </div>
+                    <img class="card-img" src="<%= game.images.medium%>" style="max-width: 300px;">
+                </div>
     <div class="col-md-8">
         <div class="card-body">
             <h1 class="card-title"><%=game.name%> </h1>
             
-                <p class="card-text">
-                    Published: <%= game.year_published %><br>
-                    Players: <%= game.min_players %> to <%= game.max_players %><br>
+                <p class="card-text text-start">
                     <%= game.description_preview %>
                 </p>
+                <p class="card-text"><small class="text-muted text-start">
+                    Published: <%= game.year_published %>
+                    Players: <%= game.min_players %> to <%= game.max_players %>
+                </small></p>
             </div>
         </div>
       </div>
@@ -22,39 +24,39 @@
 
 
     <% gameInfo.forEach(game =>{ %>
-    <form action="/games/<%=game.name%>/comments" method="POST">
-        <div class="form-group">
-            <div class="form-group row">
-                <label for="userName" class="col-sm-2 col-form-label">User commenting:</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="userName" name="name"
-                        value="<%= currentUser.name %>" required>
-                </div>
+    <form action="/games/<%=game.name%>/comments" class="form-group mb-3 w-75" method="POST">
+        <div class="mb-3 row">
+            <label for="userName" class="col-sm-2 col-form-label" >User commenting:</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext " id="userName" name="name"
+                    value="<%= currentUser.name %>" required>
             </div>
-            <label for="comment">Add new comments:</label>
-            <input type="text" class="form-control" id="comment" name="comment" required>
-            <div class="form-group row">
-                <label for="rating"> Rating:</label>
-                <div class="rating">
-                    <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-                    <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-                    <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-                    <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-                    <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-                </div>
-            </div>
-            <input hidden type="text" name="userId" value="<%= currentUser.id %>"> <br>
-            <input type="submit" class="btn btn-primary">
         </div>
-        <%})%>
+        <label for="comment" class="form-label">Add new comments:</label>
+        <!-- <input type="text" class="form-control" id="comment" name="comment" required> -->
+        <textarea type="text" class="form-control" id="comment" name="comment"  rows="3" required></textarea>
+        <div class="form-group row">
+            <label for="rating"> Rating:</label>
+            <div class="rating">
+                <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+            </div>
+        </div>
+        <input hidden type="text" name="userId" value="<%= currentUser.id %>"> <br>
+        <input type="submit" class="btn btn-primary">
+    
+    <%})%>
 </div>
 <div class= "info-div">
 <% if(gameComments) { %>
-<h3>Comments: </h3>
+<h3 >Comments: </h3> 
 <% gameComments.dataValues.comments.forEach((comment, index)=> { %>
     <div class="card w-75">
         <div class="card-body">
-       <h5 class="card-title"> <%= comment.userName %> </h5><br>
+       <h5 class="card-title"> <%= comment.name %> </h5><br>
         <p class="card-text"><%= comment.content %> <br>
         Rating: <%= comment.rating %>/5
         <% gameInfo.forEach(game =>{ %>
@@ -63,7 +65,7 @@
         <input type="submit" class="btn btn-primary" value="Edit">
          </p>
         </form> -->
-        <% if(comment.userName === currentUser.name) { %>
+        <% if(comment.userId === currentUser.id) { %>
         <a href="/games/<%= game.name%>/comments/<%= comment.id %>/edit" class="btn btn-primary"> Edit </a>
         <%}%>
         </form>
