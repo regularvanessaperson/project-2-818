@@ -38,7 +38,12 @@ npm i
   "production": {
     "database": "<insert db name here>",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": { 
+        "require": true,
+        "rejectUnauthorized": false }
+    }
   }
 }
 ``` 
