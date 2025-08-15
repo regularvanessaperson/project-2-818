@@ -1,4 +1,5 @@
-## Board Game Library [This project needs to be re-deployed somewhere new since Heroku removed free tier]
+# Board Game Library 
+### *This project needs to be re-deployed somewhere new since Heroku removed free tier*
 
 ### Introduction
 My project 2 site is designed for the user to be able to search, add and delete board games to their library as well as give comments and ratings to each game.
